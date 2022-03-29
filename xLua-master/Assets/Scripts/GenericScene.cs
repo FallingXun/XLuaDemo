@@ -30,6 +30,15 @@ public class GenericScene : MonoBehaviour
         o:Test2()
 ";
 
+    // 测试泛型方法不带参数、没有限定
+    private const string test2_3 = @"
+        local o = CS.TestGeneric()
+
+        local test2_method = xlua.get_generic_method(CS.TestGeneric,'Test2')
+        local Test2 = test2_method(CS.System.Int32)
+        Test2(o)
+";
+
     // 测试泛型方法不带参数、没有限定、都为class
     private const string test3_1 = @"
 
@@ -66,9 +75,10 @@ public class GenericScene : MonoBehaviour
         //env.DoString(test1);
         //env.DoString(test2_1);
         //env.DoString(test2_2);
+        env.DoString(test2_3);
         //env.DoString(test3_1);
         //env.DoString(test3_2);
-        env.DoString(test4);
+        //env.DoString(test4);
     }
 
 
@@ -80,6 +90,8 @@ public class GenericScene : MonoBehaviour
     private void Compile()
     {
         var o = new TestGeneric();
-        o.Test3<object, int>();
+        o.Test2<int>();
+        
+        //o.Test3<object, int>();
     }
 }
